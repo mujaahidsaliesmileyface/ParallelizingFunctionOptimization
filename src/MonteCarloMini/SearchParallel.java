@@ -1,5 +1,6 @@
 package MonteCarloMini;
 
-public class SearchParallel {
+public class SearchParallel 
+{
     
 }
