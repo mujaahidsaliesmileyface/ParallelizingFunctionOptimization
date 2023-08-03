@@ -12,13 +12,7 @@ public class Search {
 	private boolean stopped;			// Did the search hit a previous trail?
 	
 	private TerrainArea terrain;
-	enum Direction {
-		STAY_HERE,
-	    LEFT,
-	    RIGHT,
-	    UP,
-	    DOWN
-	  }
+
 
 	public Search(int id, int pos_row, int pos_col, TerrainArea terrain) {
 		this.id = id;
@@ -30,7 +24,7 @@ public class Search {
 	
 	public int find_valleys() {	
 		int height=Integer.MAX_VALUE;
-		Direction next = Direction.STAY_HERE;
+		Directions.Direction next = Directions.Direction.STAY_HERE;
 		while(terrain.visited(pos_row, pos_col)==0) { // stop when hit existing path
 			height=terrain.get_height(pos_row, pos_col);
 			terrain.mark_visited(pos_row, pos_col, id); //mark current position as visited

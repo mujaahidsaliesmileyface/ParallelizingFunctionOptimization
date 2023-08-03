@@ -7,8 +7,7 @@ BINDIR=bin
 $(BINDIR)/%.class:$(SRCDIR)/%.java
 	$(JAVAC) -d $(BINDIR)/ -cp $(BINDIR) $<
 
-CLASSES=Directions.class \
-TerrainArea.class \
+CLASSES= TerrainArea.class \
 Search.class \
 MonteCarloMinimization.class \
 SearchParallel.class \
