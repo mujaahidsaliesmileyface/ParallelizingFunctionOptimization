@@ -53,6 +53,11 @@ public class SearchParallel extends RecursiveTask<Integer>
         return localMin ;
     }
 
+    private int combineResults(int currentMin, int subtaskResult)
+    {
+        return Math.min(currentMin, subtaskResult);
+    }
+
     protected Integer compute() // need implementation of compute for RecursiveTask must return the min
     {
         if ( isBelowSequentialCutoff()) // inside here we would have the implementation of the search task
@@ -61,9 +66,26 @@ public class SearchParallel extends RecursiveTask<Integer>
         }
         else // inside the else we need to split and keep splitting the threads.
         {
+            double xMid = (xmax + xmin) / 2.0 ; // 2.0 for double, doesnt really matter.
+            double yMid = (ymax + ymin) / 2.0 ;
 
+            SearchParallel topLeft = new SearchParallel(xmin, xMid, ymin, yMid, terrain);
+            SearchParallel topRight = new SearchParallel(xMid, xmax, ymin, yMid, terrain);
+            SearchParallel bottomLeft = new SearchParallel(xmin, xMid, yMid, ymax, terrain);
+            SearchParallel bottomRight = new SearchParallel(xMid, xmax, yMid, ymax, terrain);
+
+            // fork the subtasks to be executed in parallel
+            invokeAll(topLeft, topRight, bottomLeft, bottomRight);
+
+            // wait for the completion of all subtasks and combine the results
+            int localMin = Integer.MAX_VALUE;
+            localMin = combineResults(localMin, topLeft.join());
+            localMin = combineResults(localMin, topRight.join());
+            localMin = combineResults(localMin, bottomLeft.join());
+            localMin = combineResults(localMin, bottomRight.join());
+            // finding the local min across the entire subgrid.
+            return localMin;
         }
-        return 1 ; // just so that it stops complaining for now
     }
 	
 }

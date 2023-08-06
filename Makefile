@@ -7,7 +7,8 @@ BINDIR=bin
 $(BINDIR)/%.class:$(SRCDIR)/%.java
 	$(JAVAC) -d $(BINDIR)/ -cp $(BINDIR) $<
 
-CLASSES= TerrainArea.class \
+CLASSES= Directions.class \
+TerrainArea.class \
 Search.class \
 MonteCarloMinimization.class \
 SearchParallel.class \
@@ -21,5 +22,5 @@ clean:
 	rm $(BINDIR)/MonteCarloMini/*.class
 
 run: $(CLASS_FILES)
-	$(JAVA) -cp bin MonteCarloMini.MonteCarloMinimization 10 10 -10 10 -10 10 5
+	$(JAVA) -cp bin MonteCarloMini.MonteCarloMinimization 5 5 0 4 0 4 5
 # Command Line Inputs rows columns xmin xmax ymin ymax density
