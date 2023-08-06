@@ -1,21 +1,18 @@
 package MonteCarloMini;
-/* Serial  program to use Monte Carlo method to 
- * locate a minimum in a function
- * This is the reference sequential version (Do not modify this code)
- * Michelle Kuttel 2023, University of Cape Town
- * Adapted from "Hill Climbing with Montecarlo"
- * EduHPC'22 Peachy Assignment" 
- * developed by Arturo Gonzalez Escribano  (Universidad de Valladolid 2021/2022)
- */
-import java.util.Random;
 
-class MonteCarloMinimizationParallel{
+
+import java.util.Random;
+import java.util.concurrent.ForkJoinPool ;
+
+public class MonteCarloMinimizationParallel {
+
+
 	static final boolean DEBUG=false;
 	
 	static long startTime = 0;
-	static long endTime = 0;
+	static long endTime = 0; 
+    //timers - note milliseconds
 
-	//timers - note milliseconds
 	private static void tick(){
 		startTime = System.currentTimeMillis();
 	}
@@ -33,6 +30,8 @@ class MonteCarloMinimizationParallel{
      	int num_searches;		// Number of searches
     	Search [] searches;		// Array of searches
     	Random rand = new Random();  //the random number generator
+
+        
     	
     	if (args.length!=7) {  
     		System.out.println("Incorrect number of command line arguments provided.");   	
