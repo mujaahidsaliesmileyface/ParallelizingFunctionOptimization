@@ -2,6 +2,7 @@ package MonteCarloMini;
 
 import java.util.concurrent.RecursiveTask; 
 import java.util.concurrent.ForkJoinPool; 
+import java.util.Random;
 
 public class SearchParallel extends RecursiveTask<Integer>
 {
@@ -22,18 +23,6 @@ public class SearchParallel extends RecursiveTask<Integer>
         // initialising instance variables
     }
 
-    protected Integer compute() // need implementation of compute for RecursiveTask must return the min
-    {
-        if ( isBelowSequentialCutoff()) // inside here we would have the implementation of the search task
-        {
-            
-        }
-        else // inside the else we need to split and keep splitting the threads.
-        {
-
-        }
-    }
-
     private Boolean isBelowSequentialCutoff() 
     // We're going to use a helper function to determine if our value is below the sequential cutoff
     {
@@ -52,5 +41,29 @@ public class SearchParallel extends RecursiveTask<Integer>
         }
     }
 
+    private int sequentialSearch()
+    {
+        Random rand = new Random() ;
+        int startX = rand.nextInt((int) (xmax - xmin + 1)) + (int) xmin;
+        int startY = rand.nextInt((int) (ymax - ymin + 1)) + (int) ymin;
+
+        Search searchMin = new Search(1, startX,startY,terrain);
+
+        int localMin = searchMin.find_valleys();
+        return localMin ;
+    }
+
+    protected Integer compute() // need implementation of compute for RecursiveTask must return the min
+    {
+        if ( isBelowSequentialCutoff()) // inside here we would have the implementation of the search task
+        {
+            return sequentialSearch() ;
+        }
+        else // inside the else we need to split and keep splitting the threads.
+        {
+
+        }
+        return 1 ; // just so that it stops complaining for now
+    }
 	
 }
