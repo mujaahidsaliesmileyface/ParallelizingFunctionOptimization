@@ -24,22 +24,14 @@ public class MonteCarloMinimizationParallel {
 
     	int rows, columns; //grid size
     	double xmin, xmax, ymin, ymax; //x and y terrain limits
-    	TerrainArea terrain ;//object to store the heights and grid points visited by searches
+    	//TerrainArea terrain ;//object to store the heights and grid points visited by searches
     	double searches_density;	// Density - number of Monte Carlo  searches per grid position - usually less than 1!
 
      	int num_searches;		// Number of searches
     	SearchParallel [] searches;		// Array of searches
     	Random rand = new Random();  //the random number generator
 
-    	
-    	if (args.length!=7) 
-        
-        {  
-    		System.out.println("Incorrect number of command line arguments provided.");   	
-    		System.exit(0);
-    	}
-    	/* Read argument values */
-    	rows =Integer.parseInt( args[0] );
+        rows =Integer.parseInt( args[0] );
     	columns = Integer.parseInt( args[1] );
     	xmin = Double.parseDouble(args[2] );
     	xmax = Double.parseDouble(args[3] );
@@ -47,74 +39,15 @@ public class MonteCarloMinimizationParallel {
     	ymax = Double.parseDouble(args[5] );
     	searches_density = Double.parseDouble(args[6] );
 
-        terrain = new TerrainArea(rows, columns, xmin, xmax, ymin, ymax);
-        SearchParallel rootTask = new SearchParallel(xmin,xmax,ymin,ymax,terrain) ;
-        
-        ForkJoinPool fjPool = new ForkJoinPool();
-        int globalMin = fjPool.invoke(rootTask);
-    	
-    	// Initialize 
-        terrain = new TerrainArea(rows, columns, xmin, xmax, ymin, ymax);
-    	num_searches = (int)( rows * columns * searches_density );
-    	searches = new SearchParallel [num_searches];
-    	for (int i=0;i<num_searches;i++) 
-    		searches[i] = new SearchParallel(xmin, xmax, ymin, ymax, terrain) ;
+        TerrainArea terrain = new TerrainArea(rows, columns, xmin, xmax, ymin, ymax);
+        SearchParallel rootTask = new SearchParallel(xmin, xmax, ymin, ymax, terrain);
 
-        if(DEBUG) 
-        {
-    		/* Print arguments */
-    		System.out.printf("Arguments, Rows: %d, Columns: %d\n", rows, columns);
-    		System.out.printf("Arguments, x_range: ( %f, %f ), y_range( %f, %f )\n", xmin, xmax, ymin, ymax );
-    		System.out.printf("Arguments, searches_density: %f\n", searches_density );
-    		System.out.printf("\n");
-    	}
-    	
-      	if(DEBUG) 
-        {
-    		/* Print initial values */
-    		System.out.printf("Number searches: %d\n", num_searches);
-    		//terrain.print_heights();
-    	}
-    	
-    	//start timer
-    	tick();
-    	
-    	//all searches
-    	int min=Integer.MAX_VALUE;
-    	int local_min=Integer.MAX_VALUE;
-    	int finder =-1;
-    	for  (int i=0;i<num_searches;i++) {
-    		local_min=searches[i].find_valleys();
-    		if((!searches[i].isStopped())&&(local_min<min)) { //don't look at  those who stopped because hit exisiting path
-    			min=local_min;
-    			finder=i; //keep track of who found it
-    		}
-    		if(DEBUG) System.out.println("Search "+searches[i].getID()+" finished at  "+local_min + " in " +searches[i].getSteps());
-    	}
-   		//end timer
-   		tock();
-   		
-    	if(DEBUG) {
-    		/* print final state */
-    		terrain.print_heights();
-    		terrain.print_visited();
-    	}
-    	
-		System.out.printf("Run parameters\n");
-		System.out.printf("\t Rows: %d, Columns: %d\n", rows, columns);
-		System.out.printf("\t x: [%f, %f], y: [%f, %f]\n", xmin, xmax, ymin, ymax );
-		System.out.printf("\t Search density: %f (%d searches)\n", searches_density,num_searches );
+        ForkJoinPool forkJoinPool = new ForkJoinPool();
+        int globalMin = forkJoinPool.invoke(rootTask);
 
-		/*  Total computation time */
-		System.out.printf("Time: %d ms\n",endTime - startTime );
-		int tmp=terrain.getGrid_points_visited();
-		System.out.printf("Grid points visited: %d  (%2.0f%s)\n",tmp,(tmp/(rows*columns*1.0))*100.0, "%");
-		tmp=terrain.getGrid_points_evaluated();
-		System.out.printf("Grid points evaluated: %d  (%2.0f%s)\n",tmp,(tmp/(rows*columns*1.0))*100.0, "%");
-	
-		/* Results*/
-		System.out.printf("Global minimum: %d at x=%.1f y=%.1f\n\n", globalMin, terrain.getXcoord(searches[finder].getPos_row()), terrain.getYcoord(searches[finder].getPos_col()) );
-		// new global min	
+        System.out.println("Global minimum: " + globalMin);
+        System.out.println("Coordinates (x, y): (" + terrain.getXcoord(rootTask.getPos_col()) + ", " + terrain.getYcoord(rootTask.getPos_row()) + ")");
+
     	
     }
 }
