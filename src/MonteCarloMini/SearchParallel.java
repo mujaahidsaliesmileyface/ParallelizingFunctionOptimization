@@ -59,6 +59,7 @@ public class SearchParallel extends RecursiveTask<Integer>
 		return stopped;
 	}
 
+
     SearchParallel (double xmin, double xmax, double ymin, double ymax, TerrainArea terrain) // constructor for search parallel.
     {
         this.xmin = xmin ;

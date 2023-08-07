@@ -1,5 +1,7 @@
 package MonteCarloMini;
 
+import java.util.Random;
+
 /* M. Kuttel 2023
  * Searcher class that lands somewhere random on the surfaces and 
  * then moves downhill, stopping at the local minimum.
@@ -21,7 +23,7 @@ public class Search {
 		this.terrain = terrain;
 		this.stopped = false;
 	}
-	
+
 	public int find_valleys() {	
 		int height=Integer.MAX_VALUE;
 		Directions.Direction next = Directions.Direction.STAY_HERE;
