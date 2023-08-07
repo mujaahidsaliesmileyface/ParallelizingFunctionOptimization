@@ -16,6 +16,13 @@ public class SearchParallel extends RecursiveTask<Integer>
     private double xmin,xmax,ymin,ymax ; // we are going to use this for our cut off
 	private TerrainArea terrain;
 
+    public SearchParallel(int id,TerrainArea terrainArea)
+    {
+        this.id = id ;
+        this.terrain = terrain ;
+        this.stopped = false ;
+    }
+   
     public SearchParallel(int id, int pos_row, int pos_col, TerrainArea terrain) {
 		this.id = id;
 		this.pos_row = pos_row; //randomly allocated
@@ -23,6 +30,15 @@ public class SearchParallel extends RecursiveTask<Integer>
 		this.terrain = terrain;
 		this.stopped = false;
 	}
+
+    private int lo,hi ;
+
+    public SearchParallel(int lo, int hi, TerrainArea terrain)
+    {
+        this.lo = lo;
+        this.hi = hi;
+        this.terrain = terrain;
+    }
 
 	public int getID() {
 		return id;
@@ -61,75 +77,55 @@ public class SearchParallel extends RecursiveTask<Integer>
 
         double avgSize = (xSize + ySize) /2 ; // we're going to use a single value so comparision is easier
         
-        if (avgSize < SEQUENTIAL_CUTOFF)
-        {
-          return true ;  
-        }
-        else
-        {
-            return false ;
-        }
+        return avgSize < SEQUENTIAL_CUTOFF ;
     }
 
-    private int sequentialSearch() // our find_valley
+    private int sequentialSearch(int lo, int hi) // our find_valley
     {
-        int height=Integer.MAX_VALUE;
-		Directions.Direction next = Directions.Direction.STAY_HERE;
-		while(terrain.visited(pos_row, pos_col)==0) { // stop when hit existing path
-			height=terrain.get_height(pos_row, pos_col);
-			terrain.mark_visited(pos_row, pos_col, id); //mark current position as visited
-			steps++;
-			next = terrain.next_step(pos_row, pos_col);
-			switch(next) {
-				case STAY_HERE: return height; //found local valley
-				case LEFT: 
-					pos_row--;
-					break;
-				case RIGHT:
-					pos_row=pos_row+1;
-					break;
-				case UP: 
-					pos_col=pos_col-1;
-					break;
-				case DOWN: 
-					pos_col=pos_col+1;
-					break;
-			}
-		}
-		stopped=true;
-		return height; 
+        int min =Integer.MAX_VALUE;
+        for (int i = lo; i < hi; i++) {
+            int numPoints = hi - lo; // Number of grid points in the subgrid
+            int row = lo / numPoints; // Calculate row index
+            int col = lo % numPoints; // Calculate column index
+
+            Search search = new Search(i, row, col, terrain);
+            int localMin = search.find_valleys();
+            if (!search.isStopped() && localMin < min) {
+                min = localMin;
+            }
+        }
+        return min;
+    }
+
+    private int combineResults(int currentMin, int subtaskResult)
+    {
+        return Math.min(currentMin, subtaskResult) ;
     }
 
     protected Integer compute() // need implementation of compute for RecursiveTask must return the min
     {
-        if ( isBelowSequentialCutoff()) // inside here we would have the implementation of the search task
+        if (isBelowSequentialCutoff()) // inside here we would have the implementation of the search task
         {
-            return sequentialSearch() ;
+            return sequentialSearch(lo, hi) ;
         }
         else // inside the else we need to split and keep splitting the threads.
         {
-            double xMid = (xmax + xmin) / 2.0 ; // 2.0 for double, doesnt really matter.
-            double yMid = (ymax + ymin) / 2.0 ;
+            int mid = (hi + lo) / 2;
 
-            SearchParallel topLeft = new SearchParallel(xmin, xMid, ymin, yMid, terrain);
-            SearchParallel topRight = new SearchParallel(xMid, xmax, ymin, yMid, terrain);
-            SearchParallel bottomLeft = new SearchParallel(xmin, xMid, yMid, ymax, terrain);
-            SearchParallel bottomRight = new SearchParallel(xMid, xmax, yMid, ymax, terrain);
+            SearchParallel left = new SearchParallel(xmin, xmax, ymin, ymax, terrain);
+            left.lo = lo;
+            left.hi = mid;
 
-            topLeft.fork() ;
-            topRight.fork();
-            bottomLeft.fork();
-            bottomRight.fork();
+            SearchParallel right = new SearchParallel(xmin, xmax, ymin, ymax, terrain);
+            right.lo = mid;
+            right.hi = hi;
 
-            int localMin = Integer.MAX_VALUE;
-            localMin = Math.min(localMin, topLeft.join());
-            localMin = Math.min(localMin, topRight.join());
-            localMin = Math.min(localMin, bottomLeft.join());
-            localMin = Math.min(localMin, bottomRight.join());
+            left.fork() ;
+            int rightAns = right.compute() ;
+            int leftAns = left.join() ;
 
-            return localMin ;
+            return combineResults(leftAns, rightAns);
 
-            // fork the subtasks to be executed in parall
         }
     }
 	
