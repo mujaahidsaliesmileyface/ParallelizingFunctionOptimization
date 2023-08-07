@@ -11,9 +11,8 @@ public class SearchParallel extends RecursiveTask<Integer>
 	private int steps; //number of steps to end of search
 	private boolean stopped;			// Did the search hit a previous trail?
     
-    static final int SEQUENTIAL_CUTOFF = 750; // exactly between 500 and 1000, 
-                                              // will probably play around with 
-
+    static final int SEQUENTIAL_CUTOFF = 750; // exactly between 500 and 1000, will probably play around with 
+                                        
     private double xmin,xmax,ymin,ymax ; // we are going to use this for our cut off
 	private TerrainArea terrain;
 
@@ -23,34 +22,6 @@ public class SearchParallel extends RecursiveTask<Integer>
 		this.pos_col = pos_col; //randomly allocated
 		this.terrain = terrain;
 		this.stopped = false;
-	}
-
-    public int find_valleys() {	
-		int height=Integer.MAX_VALUE;
-		Directions.Direction next = Directions.Direction.STAY_HERE;
-		while(terrain.visited(pos_row, pos_col)==0) { // stop when hit existing path
-			height=terrain.get_height(pos_row, pos_col);
-			terrain.mark_visited(pos_row, pos_col, id); //mark current position as visited
-			steps++;
-			next = terrain.next_step(pos_row, pos_col);
-			switch(next) {
-				case STAY_HERE: return height; //found local valley
-				case LEFT: 
-					pos_row--;
-					break;
-				case RIGHT:
-					pos_row=pos_row+1;
-					break;
-				case UP: 
-					pos_col=pos_col-1;
-					break;
-				case DOWN: 
-					pos_col=pos_col+1;
-					break;
-			}
-		}
-		stopped=true;
-		return height;
 	}
 
 	public int getID() {
@@ -100,21 +71,33 @@ public class SearchParallel extends RecursiveTask<Integer>
         }
     }
 
-    private int sequentialSearch()
+    private int sequentialSearch() // our find_valley
     {
-        Random rand = new Random() ;
-        int startX = rand.nextInt((int) (xmax - xmin + 1)) + (int) xmin;
-        int startY = rand.nextInt((int) (ymax - ymin + 1)) + (int) ymin;
-
-        Search searchMin = new Search(1, startX,startY,terrain);
-
-        int localMin = searchMin.find_valleys();
-        return localMin ;
-    }
-
-    private int combineResults(int currentMin, int subtaskResult)
-    {
-        return Math.min(currentMin, subtaskResult);
+        int height=Integer.MAX_VALUE;
+		Directions.Direction next = Directions.Direction.STAY_HERE;
+		while(terrain.visited(pos_row, pos_col)==0) { // stop when hit existing path
+			height=terrain.get_height(pos_row, pos_col);
+			terrain.mark_visited(pos_row, pos_col, id); //mark current position as visited
+			steps++;
+			next = terrain.next_step(pos_row, pos_col);
+			switch(next) {
+				case STAY_HERE: return height; //found local valley
+				case LEFT: 
+					pos_row--;
+					break;
+				case RIGHT:
+					pos_row=pos_row+1;
+					break;
+				case UP: 
+					pos_col=pos_col-1;
+					break;
+				case DOWN: 
+					pos_col=pos_col+1;
+					break;
+			}
+		}
+		stopped=true;
+		return height; 
     }
 
     protected Integer compute() // need implementation of compute for RecursiveTask must return the min
@@ -133,17 +116,20 @@ public class SearchParallel extends RecursiveTask<Integer>
             SearchParallel bottomLeft = new SearchParallel(xmin, xMid, yMid, ymax, terrain);
             SearchParallel bottomRight = new SearchParallel(xMid, xmax, yMid, ymax, terrain);
 
-            // fork the subtasks to be executed in parallel
-            invokeAll(topLeft, topRight, bottomLeft, bottomRight);
+            topLeft.fork() ;
+            topRight.fork();
+            bottomLeft.fork();
+            bottomRight.fork();
 
-            // wait for the completion of all subtasks and combine the results
             int localMin = Integer.MAX_VALUE;
-            localMin = combineResults(localMin, topLeft.join());
-            localMin = combineResults(localMin, topRight.join());
-            localMin = combineResults(localMin, bottomLeft.join());
-            localMin = combineResults(localMin, bottomRight.join());
-            // finding the local min across the entire subgrid.
-            return localMin;
+            localMin = Math.min(localMin, topLeft.join());
+            localMin = Math.min(localMin, topRight.join());
+            localMin = Math.min(localMin, bottomLeft.join());
+            localMin = Math.min(localMin, bottomRight.join());
+
+            return localMin ;
+
+            // fork the subtasks to be executed in parall
         }
     }
 	
