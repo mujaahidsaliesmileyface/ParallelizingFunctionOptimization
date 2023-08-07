@@ -1,53 +1,49 @@
 package MonteCarloMini;
 
-
 import java.util.Random;
-import java.util.concurrent.ForkJoinPool ;
+import java.util.concurrent.ForkJoinPool;
 
 public class MonteCarloMinimizationParallel {
 
+    public static void main(String[] args) {
 
-	static final boolean DEBUG=false;
-	
-	static long startTime = 0;
-	static long endTime = 0; 
-    //timers - note milliseconds
+        int rows, columns; //grid size
+        double xmin, xmax, ymin, ymax; //x and y terrain limits
+        TerrainArea terrain; //object to store the heights and grid points visited by searches
+        double searches_density; // Density - number of Monte Carlo  searches per grid position - usually less than 1!
 
-	private static void tick(){
-		startTime = System.currentTimeMillis();
-	}
-	private static void tock(){
-		endTime=System.currentTimeMillis(); 
-	}
-    
-    public static void main(String[] args)  {
+        int num_searches; // Number of searches
+        Search[] searches; // Array of searches
+        Random rand = new Random(); //the random number generator
 
-    	int rows, columns; //grid size
-    	double xmin, xmax, ymin, ymax; //x and y terrain limits
-    	//TerrainArea terrain ;//object to store the heights and grid points visited by searches
-    	double searches_density;	// Density - number of Monte Carlo  searches per grid position - usually less than 1!
+        if (args.length != 7) {
+            System.out.println("Incorrect number of command line arguments provided.");
+            System.exit(0);
+        }
+        /* Read argument values */
+        rows = Integer.parseInt(args[0]);
+        columns = Integer.parseInt(args[1]);
+        xmin = Double.parseDouble(args[2]);
+        xmax = Double.parseDouble(args[3]);
+        ymin = Double.parseDouble(args[4]);
+        ymax = Double.parseDouble(args[5]);
+        searches_density = Double.parseDouble(args[6]);
 
-     	int num_searches;		// Number of searches
-    	SearchParallel [] searches;		// Array of searches
-    	Random rand = new Random();  //the random number generator
+        // Initialize
+        terrain = new TerrainArea(rows, columns, xmin, xmax, ymin, ymax);
+        num_searches = (int) (rows * columns * searches_density);
+        searches = new Search[num_searches];
+        for (int i = 0; i < num_searches; i++)
+            searches[i] = new Search(i + 1, rand.nextInt(rows), rand.nextInt(columns), terrain);
 
-        rows =Integer.parseInt( args[0] );
-    	columns = Integer.parseInt( args[1] );
-    	xmin = Double.parseDouble(args[2] );
-    	xmax = Double.parseDouble(args[3] );
-    	ymin = Double.parseDouble(args[4] );
-    	ymax = Double.parseDouble(args[5] );
-    	searches_density = Double.parseDouble(args[6] );
-
-        TerrainArea terrain = new TerrainArea(rows, columns, xmin, xmax, ymin, ymax);
-        SearchParallel rootTask = new SearchParallel(xmin, xmax, ymin, ymax, terrain);
-
+        // Create a ForkJoinPool with the default number of threads
         ForkJoinPool forkJoinPool = new ForkJoinPool();
-        int globalMin = forkJoinPool.invoke(rootTask);
 
-        System.out.println("Global minimum: " + globalMin);
-        System.out.println("Coordinates (x, y): (" + terrain.getXcoord(rootTask.getPos_col()) + ", " + terrain.getYcoord(rootTask.getPos_row()) + ")");
+        // Perform the parallel searches using SearchParallel
+        SearchParallel searchParallel = new SearchParallel(0, num_searches, terrain);
+        int min = forkJoinPool.invoke(searchParallel);
 
-    	
+        // Print the global minimum
+        System.out.printf("Global minimum: %d%n", min);
     }
 }
