@@ -1,9 +1,8 @@
 package MonteCarloMini;
 
 import java.util.concurrent.RecursiveTask; 
-import java.util.concurrent.ForkJoinPool;
 import java.util.Arrays;
-import java.util.Random;
+
 
 public class SearchParallel extends RecursiveTask<Integer>
 {
@@ -12,7 +11,6 @@ public class SearchParallel extends RecursiveTask<Integer>
     
     private Search[] searches ;
     private int min;
-	private TerrainArea terrain;
     int minRow = -1; // Initialize with an invalid value
     int minCol = -1;
 
