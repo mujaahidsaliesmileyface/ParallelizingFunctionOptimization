@@ -22,5 +22,5 @@ clean:
 	rm $(BINDIR)/MonteCarloMini/*.class
 
 run: $(CLASS_FILES)
-	$(JAVA) -cp bin MonteCarloMini.MonteCarloMinimization 10 10 13 44 19 49 54
+	$(JAVA) -cp bin MonteCarloMini.MonteCarloMinimization 200 200 -200 200 -200 200 0.5
 # Command Line Inputs rows columns xmin xmax ymin ymax density
