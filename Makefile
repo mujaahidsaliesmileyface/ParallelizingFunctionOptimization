@@ -22,8 +22,9 @@ clean:
 	rm $(BINDIR)/MonteCarloMini/*.class
 
 serial: $(CLASS_FILES)
-	$(JAVA) -cp bin MonteCarloMini.MonteCarloMinimization 2000 2000 -2000 2000 -2000 2000 0.5
+	$(JAVA) -cp bin MonteCarloMini.MonteCarloMinimization 200 200 -2 2 -2 2 0.5
+	
 	
 parallel: $(CLASS_FILES)
-	$(JAVA) -cp bin MonteCarloMini.MonteCarloMinimizationParallel 2000 2000 -2000 2000 -2000 2000 0.5
+	$(JAVA) -cp bin MonteCarloMini.MonteCarloMinimizationParallel 200 200 -2 2 -2 2 0.5
 # Command Line Inputs rows columns xmin xmax ymin ymax density

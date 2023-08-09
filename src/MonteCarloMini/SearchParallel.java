@@ -7,7 +7,7 @@ import java.util.Arrays;
 public class SearchParallel extends RecursiveTask<Integer>
 {
     
-    static final int SEQUENTIAL_CUTOFF = 500; // exactly between 500 and 1000, will probably play around with 
+    static final int SEQUENTIAL_CUTOFF = 550; // exactly between 500 and 1000, will probably play around with 
     
     private Search[] searches ;
     private int min;
