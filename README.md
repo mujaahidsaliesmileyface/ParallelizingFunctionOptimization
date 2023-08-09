@@ -13,19 +13,21 @@ To compile and run the project, you'll need to have Java installed on your syste
     java -version 
 ```
 
-To get the program and run it, you can follow these instructions: 
+## Run Locally
+
+Before running, we must first install it locally. 
 
 
 ```bash 
-# You'll first need to clone the git  repository
+# You'll first need to clone the git repository
     git clone https://github.com/mujaahidsaliesmileyface.ParallelizingFunctionOptimization
 # You then need to navigate to the correct directory using 
-    cd ParallelAssignment2023
+    cd ParallelAssignment2023/makefile
 # You can then compile and run as needed. 
     javac -d bin src/MonteCarloMini/*.java
 ```
 
-A makefile is included in the directory. Use it as follows 
+A makefile is included in the directory and we will use it to run the program itself. Use it as follows: 
 ```bash 
 # serial version
     make run serial
@@ -34,11 +36,18 @@ A makefile is included in the directory. Use it as follows
 ```
 You can change the paramemters within the makefile, as seen below: 
 ```bash 
-    serial: $(CLASS_FILES)
+serial: $(CLASS_FILES)
 	$(JAVA) -cp bin MonteCarloMini.MonteCarloMinimization 200 200 -2 2 -2 2 0.5
 	
 	
 parallel: $(CLASS_FILES)
 	$(JAVA) -cp bin MonteCarloMini.MonteCarloMinimizationParallel 200 200 -2 2 -2 2 0.5
-# Command Line Inputs rows columns xmin xmax ymin ymax density
+# Command Line Inputs are : rows columns xmin xmax ymin ymax density
 ```
+
+## Acknowledgements
+
+ - [Awesome Readme Templates](https://awesomeopensource.com/project/elangosundar/awesome-README-templates)
+ - [Awesome README](https://github.com/matiassingers/awesome-readme)
+ - [How to write a Good readme](https://bulldogjob.com/news/449-how-to-write-a-good-readme-for-your-github-project)
+ - PCP_2023_4_ParallelJava.pdf
