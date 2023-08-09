@@ -1,6 +1,5 @@
 # ParallelizingFunctionOptimization
-Parallelizing Monte Carlo Function Optimisation
-
+This Java project implements a parallel algorithm to solve an optimization problem using a Monte Carlo method. The goal is to find the minimum point of a two-dimensional mathematical function within a specified range. This was completed as the first assignment in CSC2002S at UCT.
 ## Installation
 
 To compile and run the project, you'll need to have Java installed on your system. If you are using a macOS environment, it should be installed. If you are on a windows environment, you can follow these steps:
