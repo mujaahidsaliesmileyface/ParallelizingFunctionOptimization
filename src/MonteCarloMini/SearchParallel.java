@@ -7,14 +7,16 @@ import java.util.Arrays;
 public class SearchParallel extends RecursiveTask<Integer>
 {
     
-    static final int SEQUENTIAL_CUTOFF = 550; // exactly between 500 and 1000, will probably play around with 
+    static final int SEQUENTIAL_CUTOFF = 550; // Will probably play around with 
     
     private Search[] searches ;
     private int min;
-    int minRow = -1; // Initialize with an invalid value
+    // Initialize with an invalid value
+    int minRow = -1; 
     int minCol = -1;
 
 
+    // constructor 
     public SearchParallel(Search[] searches, int min, int minRow, int minCol) 
     {
         this.searches = searches;
