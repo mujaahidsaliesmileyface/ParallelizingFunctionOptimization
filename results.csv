@@ -1,0 +1,45 @@
+Run parameters
+	 Rows: 10000, Columns: 10000
+	 x: [-10000,000000, 10000,000000], y: [-10000,000000, 10000,000000]
+	 Search density: 0,500000 (50000000 searches)
+Time: 20005 ms
+Grid points visited: 39346810  (39%)
+Grid points evaluated: 236048474  (236%)
+Global minimum: 10000 at x=0,0 y=0,0
+
+Run parameters
+	 Rows: 10000, Columns: 10000
+	 x: [-10000,000000, 10000,000000], y: [-10000,000000, 10000,000000]
+	 Search density: 0,500000 (50000000 searches)
+Time: 17693 ms
+Grid points visited: 39348335  (39%)
+Grid points evaluated: 236057643  (236%)
+Global minimum: 10000 at x=0,0 y=0,0
+
+Run parameters
+	 Rows: 10000, Columns: 10000
+	 x: [-10000,000000, 10000,000000], y: [-10000,000000, 10000,000000]
+	 Search density: 0,500000 (50000000 searches)
+Time: 17666 ms
+Grid points visited: 39349427  (39%)
+Grid points evaluated: 236064127  (236%)
+Global minimum: 10000 at x=0,0 y=0,0
+
+Run parameters
+	 Rows: 10000, Columns: 10000
+	 x: [-10000,000000, 10000,000000], y: [-10000,000000, 10000,000000]
+	 Search density: 0,500000 (50000000 searches)
+Time: 16348 ms
+Grid points visited: 39350715  (39%)
+Grid points evaluated: 236071617  (236%)
+Global minimum: 10000 at x=0,0 y=0,0
+
+Run parameters
+	 Rows: 10000, Columns: 10000
+	 x: [-10000,000000, 10000,000000], y: [-10000,000000, 10000,000000]
+	 Search density: 0,500000 (50000000 searches)
+Time: 17025 ms
+Grid points visited: 39347483  (39%)
+Grid points evaluated: 236052456  (236%)
+Global minimum: 10000 at x=0,0 y=0,0
+
