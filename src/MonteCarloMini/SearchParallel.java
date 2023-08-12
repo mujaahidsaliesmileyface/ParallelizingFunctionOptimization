@@ -65,7 +65,7 @@ public class SearchParallel extends RecursiveTask<Integer>
            
             leftSearch.fork();
             int rightResult = rightSearch.compute();
-
+            
            
             int leftResult = leftSearch.join();
 
