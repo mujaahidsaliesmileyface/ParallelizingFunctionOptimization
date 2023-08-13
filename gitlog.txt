@@ -1,0 +1,192 @@
+commit 33ef431ceaddf0d6ad03dce42d308ea1c52262e6
+Author: Mujaahid <slxmuj002@myuct.ac.za>
+Date:   Sun Aug 13 14:00:37 2023 +0200
+
+    Final changes. Might still make one or two.
+
+commit 92c6da1f3bb3a199add70a635f008fdc6570ea0f
+Author: Mujaahid <slxmuj002@myuct.ac.za>
+Date:   Sat Aug 12 13:52:52 2023 +0200
+
+    Testing
+
+commit d8d996ab510db0161eb48a3057997e486d96b50e
+Author: Mujaahid <slxmuj002@myuct.ac.za>
+Date:   Sat Aug 12 12:28:27 2023 +0200
+
+    Should be final commit. Going to run tests now on local and nightmare.
+
+commit a6d7cfa36b5d981f0241fe4fdee62d82ff90cde5
+Author: Mujaahid <slxmuj002@myuct.ac.za>
+Date:   Thu Aug 10 21:09:32 2023 +0200
+
+    Made a loop to run program more than once and save data to csv
+
+commit 44318c5b3c89a8a1c3ca0d2874f16e8107454e83
+Author: Mujaahid <slxmuj002@myuct.ac.za>
+Date:   Thu Aug 10 10:21:03 2023 +0200
+
+    Trying to make a batch file to run my program multiple times at once to collect data quickly.
+
+commit d4b5730bdfed7fbde2bee60d36872589b2fda7b0
+Author: Mujaahid <slxmuj002@myuct.ac.za>
+Date:   Wed Aug 9 21:16:27 2023 +0200
+
+    Added more memory to makefile to test larger values.
+
+commit b2c28fdd727a05eee94ad14d886f38882ed78d4e
+Author: Mujaahid <slxmuj002@myuct.ac.za>
+Date:   Wed Aug 9 20:57:49 2023 +0200
+
+    Going to start measuring values now.
+
+commit 1c1870d774a389d98042546febd98fa9875c415e
+Author: Mujaahid <slxmuj002@myuct.ac.za>
+Date:   Wed Aug 9 17:39:19 2023 +0200
+
+    Added an introductory bit to README
+
+commit 01edbc11d11d2c0650ec0d60a1d48e01852c99b5
+Author: Mujaahid <slxmuj002@myuct.ac.za>
+Date:   Wed Aug 9 17:35:06 2023 +0200
+
+    Added more detail to ReadMe
+
+commit b1b0074628c47c5801110d1c24d7afb4c83537fc
+Author: Mujaahid <slxmuj002@myuct.ac.za>
+Date:   Wed Aug 9 17:28:22 2023 +0200
+
+    ReadMe updated. Will change, satisfied for now.
+
+commit b70c4dcf6e1c11d9e4a740e4b1bc97172267db7f
+Author: Mujaahid <slxmuj002@myuct.ac.za>
+Date:   Wed Aug 9 16:53:25 2023 +0200
+
+    Testing complete. Rosenbrock validity achieved. Will test a bit later
+
+commit 6e955e4106162da0211df04e4c410ff7bf3ac9e4
+Author: Mujaahid <slxmuj002@myuct.ac.za>
+Date:   Tue Aug 8 22:22:08 2023 +0200
+
+    Works well! TODO Rosenbrock function
+
+commit 326c5063c4af4dfda76302ad737667a25198c048
+Author: Mujaahid <slxmuj002@myuct.ac.za>
+Date:   Tue Aug 8 21:55:20 2023 +0200
+
+    Testing makefile variations
+
+commit 0430bf077db1071855aae6c2e5993410eaa166f0
+Author: Mujaahid <slxmuj002@myuct.ac.za>
+Date:   Tue Aug 8 21:52:51 2023 +0200
+
+    Everything works! Only thing left, make Parallel faster
+
+commit 5a031d072d5e4f25f18798606028e312e8bb8ae4
+Author: Mujaahid <slxmuj002@myuct.ac.za>
+Date:   Mon Aug 7 21:57:02 2023 +0200
+
+    Everything working for now! Satisfied.
+
+commit ead95060aa0641b9d133493dc02f996dede1c07f
+Author: Mujaahid <slxmuj002@myuct.ac.za>
+Date:   Mon Aug 7 17:14:21 2023 +0200
+
+    Going to test new parallel
+
+commit 550a3d325251e97115b9af67d980e047ced2ae3c
+Author: Mujaahid <slxmuj002@myuct.ac.za>
+Date:   Mon Aug 7 16:48:50 2023 +0200
+
+    Splitting differently now. TODO test
+
+commit a74bb121cc29b8f553654e8fd6f3a90f68a04865
+Author: Mujaahid <slxmuj002@myuct.ac.za>
+Date:   Mon Aug 7 13:55:35 2023 +0200
+
+    Thinking was incorrect... fixing up SearchParallel
+
+commit 3f7b6dc9a62559cfe28e5b56247582f1d690a52c
+Author: Mujaahid <slxmuj002@myuct.ac.za>
+Date:   Sun Aug 6 17:21:20 2023 +0200
+
+    Found mistake in SearchParallel, must debug.
+
+commit 97fbeb12f8da34dbb5e4bd664a8761c2be844cb6
+Author: Mujaahid <slxmuj002@myuct.ac.za>
+Date:   Sun Aug 6 16:45:36 2023 +0200
+
+    About to test parallelised version of MonteCarlo
+
+commit ba5ed4db73cd895a87f6ddbb9655e8a3d2702b1a
+Author: Mujaahid <slxmuj002@myuct.ac.za>
+Date:   Sun Aug 6 15:11:28 2023 +0200
+
+    TODO Change MCMP to finalize parallelisation
+
+commit ef63b3b3538c23c24a9202a2a9b2ad73ae5422d8
+Author: Mujaahid <slxmuj002@myuct.ac.za>
+Date:   Sun Aug 6 15:02:50 2023 +0200
+
+    Completed SearchParallel, TODO Test
+
+commit 608fb36d4a6ec4d768a0520c1e1d9d48314eb97d
+Author: Mujaahid <slxmuj002@myuct.ac.za>
+Date:   Sun Aug 6 14:02:21 2023 +0200
+
+    Made sequentialSearch class to use in compute
+
+commit 6efa5029faee7ee5100e928dd199ea8a97deeb33
+Author: Mujaahid <slxmuj002@myuct.ac.za>
+Date:   Sun Aug 6 12:58:54 2023 +0200
+
+    Actually progressing through SearchParallel
+
+commit 4e174dfc7df16313c0d3aad31c05007489312546
+Author: Mujaahid <slxmuj002@myuct.ac.za>
+Date:   Sun Aug 6 12:19:25 2023 +0200
+
+    Figuring out the SearchParallel
+
+commit b20aaa25791960160230c2eede370ea5fa3fe3e9
+Author: Mujaahid <slxmuj002@myuct.ac.za>
+Date:   Sat Aug 5 14:07:59 2023 +0200
+
+    Making headway on Parallel versions
+
+commit 2d5eccf5a251240d7b91ea157a089deaa6b6c703
+Author: Mujaahid <slxmuj002@myuct.ac.za>
+Date:   Thu Aug 3 13:49:54 2023 +0200
+
+    created directions to fix dependencies
+
+commit 1ab97afd2ada2abcde2784f96a02954d0d519740
+Author: Mujaahid <slxmuj002@myuct.ac.za>
+Date:   Wed Aug 2 12:33:37 2023 +0200
+
+    Created Makefile
+
+commit 9d80c62ea2175fb859eef3682143a0f368b6d8c4
+Author: Mujaahid <slxmuj002@myuct.ac.za>
+Date:   Wed Aug 2 12:18:37 2023 +0200
+
+    added parallel classes
+
+commit d9ce68a1a096ab29b2742ec77b046fefa5c50212
+Merge: c85d3bb 09e82b3
+Author: Mujaahid <slxmuj002@myuct.ac.za>
+Date:   Wed Aug 2 12:15:45 2023 +0200
+
+    Trying to commit
+
+commit c85d3bbeb65ca37a9abf1a2f9bddcaddbb11193b
+Author: Mujaahid <slxmuj002@myuct.ac.za>
+Date:   Tue Aug 1 21:30:05 2023 +0200
+
+    First commit
+
+commit 09e82b3409680fca8504bece4d07412c2ffab054
+Author: Mujaahid Salie <130797796+mujaahidsaliesmileyface@users.noreply.github.com>
+Date:   Tue Aug 1 20:33:47 2023 +0200
+
+    Initial commit
