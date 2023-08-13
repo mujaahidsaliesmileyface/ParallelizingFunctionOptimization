@@ -30,11 +30,11 @@ clean:
 run_serial:
 	@echo "Run serial version $(NUM_RUNS) times and output to $(CSV_FILE)"
 	@for i in `seq $(NUM_RUNS)`; do \
-		$(JAVA) -Xmx6g -cp bin MonteCarloMini.MonteCarloMinimization 250 250 -250 250 -250 250 0.5 >> $(CSV_FILE); \
+		$(JAVA) -Xmx6g -cp bin MonteCarloMini.MonteCarloMinimization 10 10 0 10 0 10 0.5 >> $(CSV_FILE); \
 	done
 
 run_parallel:
 	@echo "Run parallel version $(NUM_RUNS) times and output to $(CSV_FILE)"
 	@for i in `seq $(NUM_RUNS)`; do \
-		$(JAVA) -Xmx6g -cp bin MonteCarloMini.MonteCarloMinimizationParallel 250 250 -250 250 -250 250 0.5 >> $(CSV_FILE); \
+		$(JAVA) -Xmx6g -cp bin MonteCarloMini.MonteCarloMinimizationParallel 10 10 0 10 0 10 0.5 >> $(CSV_FILE); \
 	done

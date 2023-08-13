@@ -29,9 +29,9 @@ Before running, we must first install it locally.
 A makefile is included in the directory and we will use it to run the program itself. Use it as follows: 
 ```bash 
 # serial version
-    make run serial
+    make run_serial
 # parallel version
-    make run parallel
+    make run_parallel
 ```
 You can change the paramemters within the makefile, as seen below: 
 ```bash 
